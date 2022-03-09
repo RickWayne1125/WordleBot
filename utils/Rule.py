@@ -21,7 +21,6 @@ class Rule:
     def filter(self, data: pd.DataFrame):
         length = len(data)
         ratio = 50.0 / length
-        print(length)
         start = perf_counter()
         new_words = []
         new_frequency = []
@@ -33,7 +32,7 @@ class Rule:
                         flag = False
                         break
                 elif rule['status'] == 0:  # If the letter was put in a wrong position
-                    if row['word'][rule['position']] == rule['letter']:
+                    if row['word'][rule['position']] == rule['letter'] or row['word'].find(rule['letter']) == -1:
                         flag = False
                         break
                 elif rule['status'] == 1:  # If the letter was put in the right position
@@ -45,7 +44,6 @@ class Rule:
                 new_frequency.append(row['frequency'])
             progress_bar(index, length, start)
         print()
-        # for index, row in data.iterrows():
         new_data = pd.DataFrame({'word': new_words, 'frequency': new_frequency})
         return new_data
 
@@ -56,12 +54,11 @@ class Rule:
 # TEST MODULE
 if __name__ == '__main__':
     rules = Rule()
-    rules.__add__('o', 1, 0)
-    rules.__add__('t', -1, 1)
-    rules.__add__('h', -1, 2)
-    rules.__add__('e', -1, 3)
-    rules.__add__('r', -1, 4)
-    rules.show()
+    rules.__add__('c', 1, 0)
+    rules.__add__('r', -1, 1)
+    rules.__add__('a', 0, 2)
+    rules.__add__('k', -1, 3)
+    rules.__add__('e', -1, 4)
     data = pd.read_csv('../data/data.csv')
     print(rules.filter(data))
     print('----------------------------------')
