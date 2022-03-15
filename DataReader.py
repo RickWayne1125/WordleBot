@@ -51,14 +51,9 @@ class DataReader:
         data['frequency'] = frequency
         data.to_csv(self.data_path, mode='w', index=False)
 
-    def get_information_entropy(self):
-        """
-        Calculate the information entropy and save the result
-        :return:
-        """
-
 
 if __name__ == '__main__':
-    dr = DataReader()
-    dr.extract_5gram_words()
-    dr.get_sigmoid_frequency()
+    print(generate_all_status())
+    # dr = DataReader()
+    # dr.extract_5gram_words()
+    # dr.get_sigmoid_frequency()
